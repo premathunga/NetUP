@@ -10,5 +10,9 @@
     {
         "merged": "com.pingoptimizer.pro.app-merged_res-61:/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "com.pingoptimizer.pro.app-main-63:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.pingoptimizer.pro.app-merged_res-61:/xml_accessibility_service_config.xml.flat",
+        "source": "com.pingoptimizer.pro.app-main-63:/xml/accessibility_service_config.xml"
     }
 ]

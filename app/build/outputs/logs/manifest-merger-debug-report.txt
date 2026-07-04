@@ -1,9 +1,24 @@
 -- Merging decision tree log ---
+provider#rikka.shizuku.ShizukuProvider
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:75:9-81:82
+	android:enabled
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:79:13-35
+	android:authorities
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:77:13-59
+	android:multiprocess
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:78:13-41
+	android:exported
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:80:13-36
+	android:permission
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:81:13-79
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:76:13-57
 manifest
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:2:1-70:12
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:2:1-70:12
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:2:1-70:12
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:2:1-70:12
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:2:1-119:12
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] /Users/gost/.gradle/caches/transforms-3/673b97115cd14bdaa6a46ce4341e5d82/transformed/work-runtime-ktx-2.9.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:17:1-145:12
 MERGED from [androidx.navigation:navigation-common:2.7.7] /Users/gost/.gradle/caches/transforms-3/8914c550b9c31e9cfbc766557656b15c/transformed/navigation-common-2.7.7/AndroidManifest.xml:17:1-22:12
@@ -60,94 +75,106 @@ MERGED from [androidx.sqlite:sqlite-framework:2.3.0] /Users/gost/.gradle/caches/
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/gost/.gradle/caches/transforms-3/44a7225d63fc593cbd7941e20da18da5/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.sqlite:sqlite:2.3.0] /Users/gost/.gradle/caches/transforms-3/10b4a640601a55506af034f6d8691204/transformed/sqlite-2.3.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/gost/.gradle/caches/transforms-3/4431dc15771925f9c73f462bf37582cd/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:2:1-16:12
+MERGED from [dev.rikka.shizuku:api:13.1.5] /Users/gost/.gradle/caches/transforms-3/334c2bcfa608c9ec84deccf6b539f7e6/transformed/api-13.1.5/AndroidManifest.xml:2:1-7:12
+MERGED from [dev.rikka.shizuku:shared:13.1.5] /Users/gost/.gradle/caches/transforms-3/da1c3ad4acdbfa5a23fb0a2b6a4394ed/transformed/shared-13.1.5/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/gost/.gradle/caches/transforms-3/c8bc8441aa1940645ac7905c00fe16c8/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/gost/.gradle/caches/transforms-3/a596724fd6d30d8f96db7f6fc822a20f/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/gost/.gradle/caches/transforms-3/5f7ce29a25973535d221a2c1da52466d/transformed/profileinstaller-1.3.0/AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/gost/.gradle/caches/transforms-3/a8bb623963dccfbaf142c4cc7cd79c07/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/gost/.gradle/caches/transforms-3/1988c03705ce7a9214835d6b0e7d2014/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [dev.rikka.shizuku:aidl:13.1.5] /Users/gost/.gradle/caches/transforms-3/0c7b18386cacc0bccc570f8020d4392f/transformed/aidl-13.1.5/AndroidManifest.xml:2:1-7:12
 	package
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 	xmlns:tools
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:3:5-51
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:6:5-67
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:6:5-67
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:6:22-64
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:6:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:7:5-79
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:7:5-79
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:24:5-79
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:24:5-79
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:7:22-76
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:7:22-76
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:8:5-76
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:8:5-76
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:8:22-73
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:8:22-73
 uses-permission#android.permission.CHANGE_WIFI_STATE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:9:5-76
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:9:5-76
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:9:22-73
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:9:22-73
 uses-permission#android.permission.CHANGE_NETWORK_STATE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:10:5-79
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:10:5-79
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:10:22-76
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:10:22-76
 uses-permission#android.permission.READ_PHONE_STATE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:13:5-75
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:13:5-75
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:13:22-72
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:13:22-72
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:14:5-79
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:14:5-79
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:14:22-76
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:14:22-76
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:15:5-81
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:15:5-81
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:15:22-78
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:15:22-78
 uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:18:5-77
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:18:5-77
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:26:5-77
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:26:5-77
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:18:22-74
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:18:22-74
 uses-permission#android.permission.FOREGROUND_SERVICE_DATA_SYNC
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:19:5-87
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:19:5-87
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:19:22-84
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:19:22-84
+uses-permission#android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:20:5-89
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:20:22-86
 uses-permission#android.permission.PACKAGE_USAGE_STATS
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:22:5-23:47
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:23:5-24:47
 	tools:ignore
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:23:9-44
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:24:9-44
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:22:22-75
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:23:22-75
 uses-permission#android.permission.KILL_BACKGROUND_PROCESSES
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:24:5-84
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:25:5-84
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:24:22-81
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:25:22-81
 uses-permission#android.permission.ACCESS_NOTIFICATION_POLICY
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:25:5-85
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:26:5-85
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:25:22-82
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:26:22-82
 uses-permission#android.permission.QUERY_ALL_PACKAGES
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:26:5-27:53
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:27:5-28:53
 	tools:ignore
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:27:9-50
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:28:9-50
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:26:22-74
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:27:22-74
 uses-permission#android.permission.WAKE_LOCK
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:30:5-68
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:31:5-68
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:23:5-68
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:23:5-68
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:30:22-65
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:31:22-65
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:34:5-78
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:34:22-75
 application
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:32:5-68:19
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:32:5-68:19
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:36:5-117:19
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:36:5-117:19
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.6.1] /Users/gost/.gradle/caches/transforms-3/115e372b6b942b8ddd4fa4d11b75899a/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
@@ -162,74 +189,122 @@ MERGED from [androidx.room:room-runtime:2.5.0] /Users/gost/.gradle/caches/transf
 MERGED from [androidx.room:room-runtime:2.5.0] /Users/gost/.gradle/caches/transforms-3/0281f0fe52db5a632461b87b587acabe/transformed/room-runtime-2.5.0/AndroidManifest.xml:23:5-29:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/gost/.gradle/caches/transforms-3/4431dc15771925f9c73f462bf37582cd/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/gost/.gradle/caches/transforms-3/4431dc15771925f9c73f462bf37582cd/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:10:5-14:19
+MERGED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:10:5-14:19
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/gost/.gradle/caches/transforms-3/5f7ce29a25973535d221a2c1da52466d/transformed/profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/gost/.gradle/caches/transforms-3/5f7ce29a25973535d221a2c1da52466d/transformed/profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/gost/.gradle/caches/transforms-3/a8bb623963dccfbaf142c4cc7cd79c07/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/gost/.gradle/caches/transforms-3/a8bb623963dccfbaf142c4cc7cd79c07/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
 	android:extractNativeLibs
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /Users/gost/.gradle/caches/transforms-3/01be542a8a7642ecba403b94caa2bdf6/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:38:9-35
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:42:9-35
 	android:label
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:36:9-41
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:40:9-41
+	tools:ignore
+		ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:10:18-69
 	android:roundIcon
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:37:9-48
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:41:9-48
 	tools:targetApi
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:41:9-29
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:45:9-29
 	android:icon
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:35:9-43
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:39:9-43
 	android:allowBackup
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:34:9-36
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:38:9-36
 	android:theme
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:39:9-54
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:43:9-54
 	android:usesCleartextTraffic
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:40:9-45
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:44:9-45
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:33:9-41
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:37:9-41
 activity#com.pingoptimizer.pro.MainActivity
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:43:9-53:20
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:47:9-57:20
 	android:screenOrientation
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:48:13-49
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:52:13-49
 	android:launchMode
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:46:13-43
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:50:13-43
 	android:exported
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:45:13-36
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:49:13-36
 	android:theme
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:47:13-58
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:51:13-58
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:44:13-41
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:48:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:49:13-52:29
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:53:13-56:29
 action#android.intent.action.MAIN
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:50:17-69
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:54:17-69
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:50:25-66
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:54:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:51:17-77
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:55:17-77
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:51:27-74
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:55:27-74
 service#com.pingoptimizer.pro.service.GameBoosterVpnService
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:58:9-66:19
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:62:9-70:19
 	android:exported
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:60:13-36
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:64:13-36
 	android:permission
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:61:13-69
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:65:13-69
 	android:foregroundServiceType
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:62:13-53
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:66:13-53
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:59:13-58
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:63:13-58
 intent-filter#action:name:android.net.VpnService
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:63:13-65:29
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:67:13-69:29
 action#android.net.VpnService
-ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:64:17-65
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:68:17-65
 	android:name
-		ADDED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml:64:25-62
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:68:25-62
+service#com.pingoptimizer.pro.accessibility.BoostAccessibilityService
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:86:9-97:19
+	android:label
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:90:13-45
+	android:exported
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:88:13-36
+	android:permission
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:89:13-79
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:87:13-68
+intent-filter#action:name:android.accessibilityservice.AccessibilityService
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:91:13-93:29
+action#android.accessibilityservice.AccessibilityService
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:92:17-92
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:92:25-89
+meta-data#android.accessibilityservice
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:94:13-96:72
+	android:resource
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:96:17-69
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:95:17-60
+service#com.pingoptimizer.pro.overlay.PerformanceHudService
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:100:9-107:19
+	android:exported
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:102:13-37
+	android:foregroundServiceType
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:103:13-55
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:101:13-58
+property
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:104:13-106:72
+	android:value
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:106:17-69
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:105:17-76
+service#com.pingoptimizer.pro.overlay.CrosshairOverlayService
+ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:108:9-115:19
+	android:exported
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:110:13-37
+	android:foregroundServiceType
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:111:13-55
+	android:name
+		ADDED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml:109:13-60
 uses-sdk
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
-INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
+INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] /Users/gost/.gradle/caches/transforms-3/673b97115cd14bdaa6a46ce4341e5d82/transformed/work-runtime-ktx-2.9.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] /Users/gost/.gradle/caches/transforms-3/673b97115cd14bdaa6a46ce4341e5d82/transformed/work-runtime-ktx-2.9.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:21:5-44
@@ -342,6 +417,12 @@ MERGED from [androidx.sqlite:sqlite:2.3.0] /Users/gost/.gradle/caches/transforms
 MERGED from [androidx.sqlite:sqlite:2.3.0] /Users/gost/.gradle/caches/transforms-3/10b4a640601a55506af034f6d8691204/transformed/sqlite-2.3.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/gost/.gradle/caches/transforms-3/4431dc15771925f9c73f462bf37582cd/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/gost/.gradle/caches/transforms-3/4431dc15771925f9c73f462bf37582cd/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:6:5-44
+MERGED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:6:5-44
+MERGED from [dev.rikka.shizuku:api:13.1.5] /Users/gost/.gradle/caches/transforms-3/334c2bcfa608c9ec84deccf6b539f7e6/transformed/api-13.1.5/AndroidManifest.xml:5:5-44
+MERGED from [dev.rikka.shizuku:api:13.1.5] /Users/gost/.gradle/caches/transforms-3/334c2bcfa608c9ec84deccf6b539f7e6/transformed/api-13.1.5/AndroidManifest.xml:5:5-44
+MERGED from [dev.rikka.shizuku:shared:13.1.5] /Users/gost/.gradle/caches/transforms-3/da1c3ad4acdbfa5a23fb0a2b6a4394ed/transformed/shared-13.1.5/AndroidManifest.xml:5:5-44
+MERGED from [dev.rikka.shizuku:shared:13.1.5] /Users/gost/.gradle/caches/transforms-3/da1c3ad4acdbfa5a23fb0a2b6a4394ed/transformed/shared-13.1.5/AndroidManifest.xml:5:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/gost/.gradle/caches/transforms-3/c8bc8441aa1940645ac7905c00fe16c8/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/gost/.gradle/caches/transforms-3/c8bc8441aa1940645ac7905c00fe16c8/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/gost/.gradle/caches/transforms-3/a596724fd6d30d8f96db7f6fc822a20f/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
@@ -352,10 +433,12 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/gost/.gradle/caches/
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/gost/.gradle/caches/transforms-3/a8bb623963dccfbaf142c4cc7cd79c07/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/gost/.gradle/caches/transforms-3/1988c03705ce7a9214835d6b0e7d2014/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/gost/.gradle/caches/transforms-3/1988c03705ce7a9214835d6b0e7d2014/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [dev.rikka.shizuku:aidl:13.1.5] /Users/gost/.gradle/caches/transforms-3/0c7b18386cacc0bccc570f8020d4392f/transformed/aidl-13.1.5/AndroidManifest.xml:5:5-44
+MERGED from [dev.rikka.shizuku:aidl:13.1.5] /Users/gost/.gradle/caches/transforms-3/0c7b18386cacc0bccc570f8020d4392f/transformed/aidl-13.1.5/AndroidManifest.xml:5:5-44
 	android:targetSdkVersion
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/gost/Documents/GitHub/NetUP/app/src/main/AndroidManifest.xml
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
 ADDED from [androidx.work:work-runtime:2.9.0] /Users/gost/.gradle/caches/transforms-3/66b00d4ec051c57ddb8546d6e0baaf99/transformed/work-runtime-2.9.0/AndroidManifest.xml:25:5-81
 	android:name
@@ -634,6 +717,16 @@ ADDED from [androidx.room:room-runtime:2.5.0] /Users/gost/.gradle/caches/transfo
 		ADDED from [androidx.room:room-runtime:2.5.0] /Users/gost/.gradle/caches/transforms-3/0281f0fe52db5a632461b87b587acabe/transformed/room-runtime-2.5.0/AndroidManifest.xml:26:13-43
 	android:name
 		ADDED from [androidx.room:room-runtime:2.5.0] /Users/gost/.gradle/caches/transforms-3/0281f0fe52db5a632461b87b587acabe/transformed/room-runtime-2.5.0/AndroidManifest.xml:25:13-74
+uses-permission#moe.shizuku.manager.permission.API_V23
+ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:8:5-78
+	android:name
+		ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:8:22-75
+meta-data#moe.shizuku.client.V3_SUPPORT
+ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:11:9-13:36
+	android:value
+		ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:13:13-33
+	android:name
+		ADDED from [dev.rikka.shizuku:provider:13.1.5] /Users/gost/.gradle/caches/transforms-3/be4d85bf91aa8ca93672ea6a3b1ff2ed/transformed/provider-13.1.5/AndroidManifest.xml:12:13-57
 meta-data#androidx.profileinstaller.ProfileInstallerInitializer
 ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/gost/.gradle/caches/transforms-3/5f7ce29a25973535d221a2c1da52466d/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
 	android:value

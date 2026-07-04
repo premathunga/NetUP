@@ -83,24 +83,19 @@ fun GameBoosterScreen() {
     var cleanedCount by remember { mutableStateOf(0) }
     var ramFreedMb by remember { mutableIntStateOf(0) }
     var currentLatencyMs by remember { mutableIntStateOf(0) }
+    var lastCleanMethod by remember { mutableStateOf<GameModeManager.CleanMethod?>(null) }
+    val bestCleanMethod = remember(cleanedCount) { GameModeManager.bestAvailableCleanMethod(context) }
+    var showCleanupSetup by remember { mutableStateOf(false) }
 
     val hasDnd = GameModeManager.hasDndAccess(context)
     val hasUsageAccess = GameModeManager.hasUsageAccess(context)
 
-    // Live Latency Polling
+    // Live Latency Polling - centralized, real measurement (ICMP with TCP-connect fallback)
     LaunchedEffect(dnsPrimary) {
         withContext(Dispatchers.IO) {
             while (true) {
-                try {
-                    val process = Runtime.getRuntime().exec("ping -c 1 -W 1 $dnsPrimary")
-                    val reader = BufferedReader(InputStreamReader(process.inputStream))
-                    val output = reader.readText()
-                    process.waitFor()
-                    val match = "time=([0-9.]+)".toRegex().find(output)
-                    currentLatencyMs = match?.groupValues?.get(1)?.toDouble()?.toInt() ?: -1
-                } catch (e: Exception) {
-                    currentLatencyMs = -1
-                }
+                val r = com.pingoptimizer.pro.network.PingUtils.smartPing(dnsPrimary)
+                currentLatencyMs = if (r.success) r.latencyMs.toInt() else -1
                 delay(3000)
             }
         }
@@ -125,13 +120,21 @@ fun GameBoosterScreen() {
         if (result.resultCode == Activity.RESULT_OK) {
             GameBoosterVpnService.start(context, priorityPackage, dnsPrimary, dnsSecondary, throttleEnabled)
             scope.launch { prefs.setBoosterActive(true) }
-            
-            // Clean RAM automatically
+
+            // Clean RAM automatically - real force-stop via Shizuku/Accessibility if set up,
+            // otherwise the weaker (but still real) killBackgroundProcesses fallback.
             if (hasUsageAccess) {
-                val candidates = GameModeManager.listBackgroundCandidates(context, priorityPackage)
-                GameModeManager.killBackgroundApps(context, candidates)
+                scope.launch {
+                    val candidates = GameModeManager.listBackgroundCandidates(context, priorityPackage)
+                    lastCleanMethod = GameModeManager.ultimateClean(context, candidates) {
+                        cleanedCount = candidates.size
+                    }
+                    if (lastCleanMethod != GameModeManager.CleanMethod.ACCESSIBILITY) {
+                        cleanedCount = candidates.size
+                    }
+                }
             }
-            
+
             // Launch the selected game
             val pkgToLaunch = priorityPackage ?: "com.tencent.ig"
             val launchIntent = context.packageManager.getLaunchIntentForPackage(pkgToLaunch)
@@ -153,13 +156,21 @@ fun GameBoosterScreen() {
             } else {
                 GameBoosterVpnService.start(context, priorityPackage, dnsPrimary, dnsSecondary, throttleEnabled)
                 scope.launch { prefs.setBoosterActive(true) }
-                
-                // Clean RAM automatically
+
+                // Clean RAM automatically - real force-stop via Shizuku/Accessibility if set up,
+                // otherwise the weaker (but still real) killBackgroundProcesses fallback.
                 if (hasUsageAccess) {
-                    val candidates = GameModeManager.listBackgroundCandidates(context, priorityPackage)
-                    GameModeManager.killBackgroundApps(context, candidates)
+                    scope.launch {
+                        val candidates = GameModeManager.listBackgroundCandidates(context, priorityPackage)
+                        lastCleanMethod = GameModeManager.ultimateClean(context, candidates) {
+                            cleanedCount = candidates.size
+                        }
+                        if (lastCleanMethod != GameModeManager.CleanMethod.ACCESSIBILITY) {
+                            cleanedCount = candidates.size
+                        }
+                    }
                 }
-                
+
                 // Launch the selected game
                 val pkgToLaunch = priorityPackage ?: "com.tencent.ig" // Default to PUBG Mobile if null
                 val launchIntent = context.packageManager.getLaunchIntentForPackage(pkgToLaunch)
@@ -415,6 +426,35 @@ fun GameBoosterScreen() {
                     Text("Apps Cleaned: $cleanedCount", color = AccentGreen, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
 
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Honest indicator of which force-stop method will actually run, plus
+                // a one-tap way to upgrade from the weak method to a real one.
+                val methodLabel = when (bestCleanMethod) {
+                    GameModeManager.CleanMethod.SHIZUKU -> "⚡ Ultimate Mode (Shizuku) — permanent force-stop"
+                    GameModeManager.CleanMethod.ACCESSIBILITY -> "🛡️ Auto Force-Stop (Accessibility) — permanent"
+                    GameModeManager.CleanMethod.BASIC -> "⚠️ Basic Mode — apps may restart in a few seconds"
+                }
+                val methodColor = when (bestCleanMethod) {
+                    GameModeManager.CleanMethod.SHIZUKU -> AccentGreen
+                    GameModeManager.CleanMethod.ACCESSIBILITY -> NeonCyan
+                    GameModeManager.CleanMethod.BASIC -> Color(0xFFFFB020)
+                }
+                Text(methodLabel, color = methodColor, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+
+                if (bestCleanMethod == GameModeManager.CleanMethod.BASIC) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            "Upgrade to permanent cleanup →",
+                            color = NeonCyan,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.clickable { showCleanupSetup = true }
+                        )
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Clean Now Button
@@ -435,19 +475,35 @@ fun GameBoosterScreen() {
                                     val availBefore = memBefore.availMem
                                     
                                     val candidates = GameModeManager.listBackgroundCandidates(context, priorityPackage)
-                                    GameModeManager.killBackgroundApps(context, candidates)
-                                    
-                                    delay(500) // wait for apps to actually die
-                                    
-                                    val memAfter = android.app.ActivityManager.MemoryInfo()
-                                    am.getMemoryInfo(memAfter)
-                                    val availAfter = memAfter.availMem
-                                    
-                                    val freedBytes = (availAfter - availBefore).coerceAtLeast(0)
-                                    
-                                    withContext(Dispatchers.Main) {
-                                        cleanedCount = candidates.size
-                                        ramFreedMb = (freedBytes / (1024 * 1024)).toInt()
+                                    val method = GameModeManager.ultimateClean(context, candidates) {
+                                        // Accessibility path finishes asynchronously (it drives the
+                                        // real Settings UI) - measure RAM again once it reports done.
+                                        scope.launch(Dispatchers.IO) {
+                                            val memAfter = android.app.ActivityManager.MemoryInfo()
+                                            am.getMemoryInfo(memAfter)
+                                            val freed = (memAfter.availMem - availBefore).coerceAtLeast(0)
+                                            withContext(Dispatchers.Main) {
+                                                cleanedCount = candidates.size
+                                                ramFreedMb = (freed / (1024 * 1024)).toInt()
+                                                lastCleanMethod = GameModeManager.CleanMethod.ACCESSIBILITY
+                                            }
+                                        }
+                                    }
+
+                                    if (method != GameModeManager.CleanMethod.ACCESSIBILITY) {
+                                        delay(500) // give killed/force-stopped processes a moment to actually die
+
+                                        val memAfter = android.app.ActivityManager.MemoryInfo()
+                                        am.getMemoryInfo(memAfter)
+                                        val availAfter = memAfter.availMem
+
+                                        val freedBytes = (availAfter - availBefore).coerceAtLeast(0)
+
+                                        withContext(Dispatchers.Main) {
+                                            cleanedCount = candidates.size
+                                            ramFreedMb = (freedBytes / (1024 * 1024)).toInt()
+                                            lastCleanMethod = method
+                                        }
                                     }
                                 }
                             }
@@ -567,6 +623,56 @@ fun GameBoosterScreen() {
                     }
                 }
             }
+        )
+    }
+
+    if (showCleanupSetup) {
+        AlertDialog(
+            onDismissRequest = { showCleanupSetup = false },
+            title = { Text("Permanent Background Cleanup", color = Color.White) },
+            text = {
+                Column {
+                    Text(
+                        "\"Basic Mode\" apps can restart within seconds - that's an Android " +
+                            "limitation, not a bug. Two real upgrades are available:",
+                        color = TextSecondary, fontSize = 13.sp
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Text("⚡ Shizuku (recommended)", color = AccentGreen, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        "Install the free, open-source Shizuku app, pair it once (wireless " +
+                            "debugging, no root needed), then grant this app permission here.",
+                        color = TextSecondary, fontSize = 12.sp
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        "Grant Shizuku permission",
+                        color = NeonCyan, fontSize = 13.sp, fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            com.pingoptimizer.pro.shizuku.ShizukuBoosterManager.requestPermission { }
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text("🛡️ Accessibility Auto Force-Stop", color = NeonCyan, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        "No extra app needed - NetUP will drive the real Settings \"Force " +
+                            "stop\" button on your behalf for a few seconds when you clean.",
+                        color = TextSecondary, fontSize = 12.sp
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        "Open Accessibility Settings",
+                        color = NeonCyan, fontSize = 13.sp, fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            com.pingoptimizer.pro.accessibility.BoostAccessibilityService.openAccessibilitySettings(context)
+                        }
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showCleanupSetup = false }) { Text("Done", color = NeonCyan) }
+            },
+            containerColor = BgCard
         )
     }
 }

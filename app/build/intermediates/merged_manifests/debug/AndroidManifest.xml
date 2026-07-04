@@ -23,6 +23,7 @@
     <!-- Game Booster VPN tunnel -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <!-- Background app data usage + Game Mode -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
@@ -32,6 +33,9 @@
 
     <!-- Keep screen on during gaming sessions -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Floating overlays: Performance HUD, Crosshair -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <permission
@@ -39,6 +43,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.pingoptimizer.pro.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 
     <application
         android:name="com.pingoptimizer.pro.PingOptimizerApp"
@@ -79,6 +84,56 @@
             <intent-filter>
                 <action android:name="android.net.VpnService" />
             </intent-filter>
+        </service>
+
+        <!--
+             Shizuku bridge: lets the user optionally grant ADB-level ("adb shell")
+             privilege via the separate, open-source Shizuku app - no root required.
+             Used only for genuine force-stop of background apps. See README.
+        -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="com.pingoptimizer.pro.debug.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <!--
+             Accessibility fallback for genuine force-stop when Shizuku isn't set up.
+             Inert unless the user explicitly taps "Clean Now" - see
+             BoostAccessibilityService for the armed/disarmed design.
+        -->
+        <service
+            android:name="com.pingoptimizer.pro.accessibility.BoostAccessibilityService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- Floating overlays: Performance HUD (ping/RAM/battery temp) and Crosshair -->
+        <service
+            android:name="com.pingoptimizer.pro.overlay.PerformanceHudService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Floating in-game performance overlay" />
+        </service>
+        <service
+            android:name="com.pingoptimizer.pro.overlay.CrosshairOverlayService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" >
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Floating crosshair overlay" />
         </service>
 
         <provider
@@ -199,6 +254,10 @@
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:directBootAware="true"
             android:exported="false" />
+
+        <meta-data
+            android:name="moe.shizuku.client.V3_SUPPORT"
+            android:value="true" />
 
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"

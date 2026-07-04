@@ -98,10 +98,9 @@ object GameModeManager {
     }
 
     /**
-     * Attempts to free RAM/bandwidth by killing background processes of the given
-     * packages. This uses the standard, non-root ActivityManager API - Android will
-     * only actually kill apps it considers safe to kill (cached/background state);
-     * it will not force-close apps with active foreground services.
+     * Weakest method: asks the OS to kill background processes. Android treats this
+     * as a mere *suggestion* - apps in a cached state are free to (and commonly do)
+     * restart within seconds. Kept only as the last-resort fallback below.
      */
     fun killBackgroundApps(context: Context, packages: List<String>) {
         val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -112,6 +111,49 @@ object GameModeManager {
                 // ignore individual failures
             }
         }
+    }
+
+    enum class CleanMethod { SHIZUKU, ACCESSIBILITY, BASIC }
+
+    /** Which real cleanup method is currently usable, best first. */
+    fun bestAvailableCleanMethod(context: Context): CleanMethod = when {
+        com.pingoptimizer.pro.shizuku.ShizukuBoosterManager.hasPermission() -> CleanMethod.SHIZUKU
+        com.pingoptimizer.pro.accessibility.BoostAccessibilityService.isEnabled(context) -> CleanMethod.ACCESSIBILITY
+        else -> CleanMethod.BASIC
+    }
+
+    /**
+     * The real fix for "apps come back after 5 seconds": tries a genuine,
+     * non-reversible force-stop via Shizuku first (instant, no UI needed).
+     * If Shizuku isn't set up, falls back to driving the real system
+     * "Force stop" button via Accessibility (a few seconds, visible to the
+     * user). Only if neither is set up does it fall back to the weak
+     * killBackgroundProcesses() suggestion.
+     *
+     * Returns the [CleanMethod] that was actually used, so the UI can show
+     * the user an honest result instead of a fixed "success" message.
+     */
+    suspend fun ultimateClean(
+        context: Context,
+        packages: List<String>,
+        onAccessibilityDone: (() -> Unit)? = null
+    ): CleanMethod {
+        if (packages.isEmpty()) return CleanMethod.BASIC
+
+        if (com.pingoptimizer.pro.shizuku.ShizukuBoosterManager.hasPermission()) {
+            val n = com.pingoptimizer.pro.shizuku.ShizukuBoosterManager.forceStopAll(context, packages)
+            if (n > 0) return CleanMethod.SHIZUKU
+        }
+
+        if (com.pingoptimizer.pro.accessibility.BoostAccessibilityService.isEnabled(context)) {
+            com.pingoptimizer.pro.accessibility.BoostAccessibilityService.startBoostSequence(packages) {
+                onAccessibilityDone?.invoke()
+            }
+            return CleanMethod.ACCESSIBILITY
+        }
+
+        killBackgroundApps(context, packages)
+        return CleanMethod.BASIC
     }
 
     fun openAppDataSettings(context: Context, packageName: String) {

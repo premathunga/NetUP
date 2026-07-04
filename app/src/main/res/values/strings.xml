@@ -14,4 +14,11 @@
         මේක ඔයාගේ data කිසිම remote server එකකට යවන්නේ නෑ - device එක ඇතුලේම (local) ක්‍රියා කරන
         tunnel එකක්.
     </string>
+
+    <string name="accessibility_service_description">
+        NetUP uses this permission ONLY when you tap "Clean Now" - it briefly opens each
+        background app\'s system Settings page and taps the real "Force stop" button on your
+        behalf, then returns you to NetUP. It does not run in the background at any other time
+        and does not read or interact with any other app.
+    </string>
 </resources>

@@ -49,24 +49,30 @@ fun NetworkOptimizerScreen() {
     var pingGoogle by remember { mutableIntStateOf(-1) }
     var pingQuad9 by remember { mutableIntStateOf(-1) }
 
+    // Live signal snapshot backing the radar stat boxes below (real data, not hardcoded)
+    var wifiSnapshot by remember { mutableStateOf<com.pingoptimizer.pro.utils.WifiInfoSnapshot?>(null) }
+    var cellularSnapshot by remember { mutableStateOf<com.pingoptimizer.pro.utils.CellularInfoSnapshot?>(null) }
+    var lastJitterMs by remember { mutableIntStateOf(0) }
+    var lastLossPercent by remember { mutableIntStateOf(0) }
+
     LaunchedEffect(Unit) {
+        wifiSnapshot = com.pingoptimizer.pro.utils.NetworkSignalUtils.readWifi(context)
+        cellularSnapshot = com.pingoptimizer.pro.utils.NetworkSignalUtils.readCellular(context)
         withContext(Dispatchers.IO) {
-            fun getPing(ip: String): Int {
-                return try {
-                    val process = Runtime.getRuntime().exec("ping -c 1 -W 1 $ip")
-                    val reader = BufferedReader(InputStreamReader(process.inputStream))
-                    val output = reader.readText()
-                    process.waitFor()
-                    val match = "time=([0-9.]+)".toRegex().find(output)
-                    match?.groupValues?.get(1)?.toDouble()?.toInt() ?: -1
-                } catch (e: Exception) {
-                    -1
-                }
+            launch {
+                val r = com.pingoptimizer.pro.network.PingUtils.smartPing("1.1.1.1")
+                pingCloudflare = if (r.success) r.latencyMs.toInt() else -1
             }
-            
-            launch { pingCloudflare = getPing("1.1.1.1") }
-            launch { pingGoogle = getPing("8.8.8.8") }
-            launch { pingQuad9 = getPing("9.9.9.9") }
+            launch {
+                val r = com.pingoptimizer.pro.network.PingUtils.smartPing("8.8.8.8")
+                pingGoogle = if (r.success) r.latencyMs.toInt() else -1
+            }
+            launch {
+                val stats = com.pingoptimizer.pro.network.PingUtils.runSamples("9.9.9.9", samples = 4)
+                pingQuad9 = if (stats.lossPercent < 100) stats.avgMs.toInt() else -1
+                lastJitterMs = stats.jitterMs.toInt()
+                lastLossPercent = stats.lossPercent
+            }
         }
     }
 
@@ -123,21 +129,40 @@ fun NetworkOptimizerScreen() {
                     .background(BgCard)
                     .padding(20.dp)
             ) {
+                val connectionOk = lastLossPercent < 50
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = Modifier.size(12.dp).clip(RoundedCornerShape(6.dp)).background(AccentGreen.copy(alpha = radarAlpha)))
+                        Box(modifier = Modifier.size(12.dp).clip(RoundedCornerShape(6.dp)).background((if (connectionOk) AccentGreen else Color(0xFFFF4D6D)).copy(alpha = radarAlpha)))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("CONNECTION SECURE", color = AccentGreen, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                        Text(
+                            if (connectionOk) "CONNECTION SECURE" else "CONNECTION UNSTABLE",
+                            color = if (connectionOk) AccentGreen else Color(0xFFFF4D6D),
+                            fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp
+                        )
                     }
-                    Text("5G / Wi-Fi 6", color = TextSecondary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        cellularSnapshot?.networkType?.takeIf { wifiSnapshot?.connected != true }
+                            ?: if (wifiSnapshot?.connected == true) "Wi-Fi" else "...",
+                        color = TextSecondary, fontSize = 12.sp, fontWeight = FontWeight.Bold
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    RadarStatBox(title = "PACKET LOSS", value = "0%", color = AccentGreen)
-                    RadarStatBox(title = "JITTER", value = "2ms", color = NeonCyan)
-                    RadarStatBox(title = "SIGNAL", value = "Excellent", color = Color.White)
+                    RadarStatBox(
+                        title = "PACKET LOSS",
+                        value = "$lastLossPercent%",
+                        color = if (lastLossPercent == 0) AccentGreen else Color(0xFFFFB020)
+                    )
+                    RadarStatBox(title = "JITTER", value = "${lastJitterMs}ms", color = NeonCyan)
+                    RadarStatBox(
+                        title = "SIGNAL",
+                        value = wifiSnapshot?.takeIf { it.connected }?.qualityLabel?.substringBefore(" (")
+                            ?: cellularSnapshot?.qualityLabel?.substringBefore(" (")
+                            ?: "...",
+                        color = Color.White
+                    )
                 }
             }
 
@@ -232,21 +257,21 @@ fun NetworkOptimizerScreen() {
                         isTesting = true
                         pingLog = emptyList()
                         scope.launch {
-                            pingLog = pingLog + "> Initializing NetUP Diagnostic Tool v2.4..."
-                            delay(500)
-                            pingLog = pingLog + "> Resolving AWS Gaming servers..."
-                            delay(600)
-                            pingLog = pingLog + "> Pinging 52.94.248.64 with 32 bytes of data:"
-                            delay(800)
-                            pingLog = pingLog + "> Reply from 52.94.248.64: time=32ms TTL=54"
-                            delay(800)
-                            pingLog = pingLog + "> Reply from 52.94.248.64: time=31ms TTL=54"
-                            delay(800)
-                            pingLog = pingLog + "> Reply from 52.94.248.64: time=33ms TTL=54"
-                            delay(600)
-                            pingLog = pingLog + "> Ping statistics for 52.94.248.64:"
-                            pingLog = pingLog + "> Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)"
-                            pingLog = pingLog + "> OPTIMIZATION SUCCESSFUL. ROUTE STABLE."
+                            // Real multi-target diagnostic - every line below reflects an
+                            // actual ping result (ICMP via shell, TCP-connect fallback).
+                            // Nothing here is scripted; if your connection is bad, this
+                            // will honestly show loss/timeouts instead of faking success.
+                            val targets = listOf(
+                                "Cloudflare" to "1.1.1.1",
+                                "Google" to "8.8.8.8",
+                                "Quad9" to "9.9.9.9"
+                            )
+                            val finalStats = com.pingoptimizer.pro.network.PingUtils.runDiagnostic(targets) { line ->
+                                pingLog = pingLog + line
+                            }
+                            pingLog = pingLog + if (finalStats.lossPercent < 100)
+                                "> Result: ${if (finalStats.avgMs < 80) "ROUTE HEALTHY" else "ROUTE DEGRADED"}"
+                            else "> Result: CONNECTION FAILED - check network"
                             isTesting = false
                         }
                     },

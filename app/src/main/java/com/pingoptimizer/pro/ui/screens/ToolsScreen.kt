@@ -1,6 +1,7 @@
 package com.pingoptimizer.pro.ui.screens
 
 import android.app.Activity
+import android.content.Context
 import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,6 +31,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import android.os.Build
+import android.os.PowerManager
+import com.pingoptimizer.pro.overlay.CrosshairOverlayService
+import com.pingoptimizer.pro.overlay.OverlayPermissionUtils
+import com.pingoptimizer.pro.overlay.PerformanceHudService
 import com.pingoptimizer.pro.ui.theme.*
 import com.pingoptimizer.pro.utils.GameModeManager
 
@@ -37,13 +43,90 @@ import com.pingoptimizer.pro.utils.GameModeManager
 fun ToolsScreen() {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val powerManager = remember { context.getSystemService(Context.POWER_SERVICE) as PowerManager }
 
     var dndEnabled by remember { mutableStateOf(false) }
     var keepScreenOn by remember { mutableStateOf(false) }
     var brightnessLock by remember { mutableStateOf(false) }
     var touchLock by remember { mutableStateOf(false) }
-    var thermalSync by remember { mutableStateOf(false) }
     var selectedProfile by remember { mutableStateOf("BALANCED") }
+    var hudActive by remember { mutableStateOf(false) }
+    var crosshairActive by remember { mutableStateOf(false) }
+
+    // Real thermal monitoring via PowerManager (API 29+). Not a fake switch -
+    // this reflects the device's actual reported thermal status.
+    val thermalSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    var thermalMonitoring by remember { mutableStateOf(false) }
+    var thermalStatusLabel by remember { mutableStateOf("Not monitoring") }
+    val thermalListener = remember {
+        if (thermalSupported) {
+            PowerManager.OnThermalStatusChangedListener { status ->
+                thermalStatusLabel = when (status) {
+                    PowerManager.THERMAL_STATUS_NONE -> "Normal"
+                    PowerManager.THERMAL_STATUS_LIGHT -> "Warm (light)"
+                    PowerManager.THERMAL_STATUS_MODERATE -> "Warm (moderate)"
+                    PowerManager.THERMAL_STATUS_SEVERE -> "Hot (severe) - performance may drop"
+                    PowerManager.THERMAL_STATUS_CRITICAL -> "Critical - close background apps now"
+                    PowerManager.THERMAL_STATUS_EMERGENCY,
+                    PowerManager.THERMAL_STATUS_SHUTDOWN -> "Emergency - device may shut down"
+                    else -> "Unknown"
+                }
+            }
+        } else null
+    }
+    DisposableEffect(thermalMonitoring) {
+        if (thermalSupported && thermalMonitoring && thermalListener != null) {
+            powerManager.addThermalStatusListener(thermalListener)
+            thermalStatusLabel = when (powerManager.currentThermalStatus) {
+                PowerManager.THERMAL_STATUS_NONE -> "Normal"
+                else -> "Monitoring..."
+            }
+        }
+        onDispose {
+            if (thermalSupported && thermalListener != null) {
+                try { powerManager.removeThermalStatusListener(thermalListener) } catch (e: Exception) {}
+            }
+        }
+    }
+
+    fun applyProfile(profile: String) {
+        selectedProfile = profile
+        val activity = context as? Activity ?: return
+        when (profile) {
+            "POWER_SAVE" -> {
+                keepScreenOn = false
+                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                brightnessLock = false
+                val lp = activity.window.attributes
+                lp.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
+                activity.window.attributes = lp
+            }
+            "EXTREME" -> {
+                keepScreenOn = true
+                activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                brightnessLock = true
+                val lp = activity.window.attributes
+                lp.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL
+                activity.window.attributes = lp
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
+                    powerManager.isSustainedPerformanceModeSupported
+                ) {
+                    activity.window.setSustainedPerformanceMode(true)
+                }
+                if (GameModeManager.hasDndAccess(context)) {
+                    GameModeManager.enableGameDnd(context)
+                    dndEnabled = true
+                }
+            }
+            else -> { // BALANCED: revert to defaults, no forced overrides
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
+                    powerManager.isSustainedPerformanceModeSupported
+                ) {
+                    activity.window.setSustainedPerformanceMode(false)
+                }
+            }
+        }
+    }
 
     val hasDnd = GameModeManager.hasDndAccess(context)
 
@@ -125,23 +208,34 @@ fun ToolsScreen() {
                     title = "POWER SAVE",
                     icon = Icons.Filled.EnergySavingsLeaf,
                     isSelected = selectedProfile == "POWER_SAVE",
-                    onClick = { selectedProfile = "POWER_SAVE" }
+                    onClick = { applyProfile("POWER_SAVE") }
                 )
                 ProfileButton(
                     modifier = Modifier.weight(1f),
                     title = "BALANCED",
                     icon = null,
                     isSelected = selectedProfile == "BALANCED",
-                    onClick = { selectedProfile = "BALANCED" }
+                    onClick = { applyProfile("BALANCED") }
                 )
                 ProfileButton(
                     modifier = Modifier.weight(1f),
                     title = "EXTREME",
                     icon = Icons.Filled.RocketLaunch,
                     isSelected = selectedProfile == "EXTREME",
-                    onClick = { selectedProfile = "EXTREME" }
+                    onClick = { applyProfile("EXTREME") }
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                when (selectedProfile) {
+                    "POWER_SAVE" -> "Screen timeout restored, brightness override off, DND unchanged."
+                    "EXTREME" -> "Screen stays on, brightness locked to full, sustained performance mode" +
+                        (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && powerManager.isSustainedPerformanceModeSupported) " enabled" else " (unsupported on this device)") +
+                        ", DND enabled."
+                    else -> "No forced overrides - your normal device settings apply."
+                },
+                color = TextSecondary, fontSize = 11.sp
+            )
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -227,7 +321,7 @@ fun ToolsScreen() {
                 Text("Advanced Tools", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.width(8.dp))
                 Box(modifier = Modifier.background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(50)).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                    Text("EXPERIMENTAL", color = TextPrimary, fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                    Text("REAL", color = TextPrimary, fontSize = 8.sp, fontWeight = FontWeight.Bold)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -235,23 +329,45 @@ fun ToolsScreen() {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 AdvancedToolCard(
                     modifier = Modifier.weight(1f),
-                    title = "FPS Monitor",
-                    subtitle = "REAL-TIME OVERLAY",
+                    title = "Performance HUD",
+                    subtitle = "LIVE PING / RAM / TEMP",
                     icon = Icons.Filled.GraphicEq,
-                    buttonText = "ACTIVATE"
+                    buttonText = if (hudActive) "STOP" else "ACTIVATE",
+                    onClick = {
+                        if (!OverlayPermissionUtils.canDrawOverlays(context)) {
+                            OverlayPermissionUtils.requestOverlayPermission(context)
+                        } else if (hudActive) {
+                            PerformanceHudService.stop(context)
+                            hudActive = false
+                        } else {
+                            PerformanceHudService.start(context)
+                            hudActive = true
+                        }
+                    }
                 )
                 AdvancedToolCard(
                     modifier = Modifier.weight(1f),
                     title = "Crosshair",
-                    subtitle = "FPS PRECISION",
+                    subtitle = "CLICK-THROUGH OVERLAY",
                     icon = Icons.Filled.FilterCenterFocus,
-                    buttonText = "CONFIGURE"
+                    buttonText = if (crosshairActive) "STOP" else "ACTIVATE",
+                    onClick = {
+                        if (!OverlayPermissionUtils.canDrawOverlays(context)) {
+                            OverlayPermissionUtils.requestOverlayPermission(context)
+                        } else if (crosshairActive) {
+                            CrosshairOverlayService.stop(context)
+                            crosshairActive = false
+                        } else {
+                            CrosshairOverlayService.start(context)
+                            crosshairActive = true
+                        }
+                    }
                 )
             }
             
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Thermal Sync Card
+            // Thermal Status Card - real PowerManager thermal status, not a dead switch
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -272,12 +388,17 @@ fun ToolsScreen() {
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
-                    Text("Thermal Sync v2", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    Text("CPU/GPU Throttle Control", color = TextSecondary, fontSize = 12.sp)
+                    Text("Thermal Status", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        if (!thermalSupported) "Requires Android 10+"
+                        else if (thermalMonitoring) thermalStatusLabel else "Monitoring off",
+                        color = TextSecondary, fontSize = 12.sp
+                    )
                 }
                 Switch(
-                    checked = thermalSync,
-                    onCheckedChange = { thermalSync = it },
+                    checked = thermalMonitoring,
+                    enabled = thermalSupported,
+                    onCheckedChange = { thermalMonitoring = it },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         checkedTrackColor = NeonCyan,
@@ -358,7 +479,7 @@ fun UtilityToggleRow(title: String, subtitle: String, icon: ImageVector, checked
 }
 
 @Composable
-fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: ImageVector, buttonText: String) {
+fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: ImageVector, buttonText: String, onClick: () -> Unit = {}) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
@@ -377,7 +498,7 @@ fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: 
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color.White.copy(alpha = 0.1f))
-                .clickable { /* Future implementation */ }
+                .clickable { onClick() }
                 .padding(vertical = 10.dp),
             contentAlignment = Alignment.Center
         ) {

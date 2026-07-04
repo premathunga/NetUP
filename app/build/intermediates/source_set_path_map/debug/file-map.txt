@@ -55,9 +55,9 @@ com.pingoptimizer.pro.app-savedstate-ktx-1.2.1-53 /Users/gost/.gradle/caches/tra
 com.pingoptimizer.pro.app-lifecycle-runtime-2.7.0-54 /Users/gost/.gradle/caches/transforms-3/cc269b482257343e7677caefd82573f4/transformed/lifecycle-runtime-2.7.0/res
 com.pingoptimizer.pro.app-material-icons-extended-release-55 /Users/gost/.gradle/caches/transforms-3/eb1e8b578decd6e1cf17f53c4d3b25ed/transformed/material-icons-extended-release/res
 com.pingoptimizer.pro.app-room-ktx-2.5.0-56 /Users/gost/.gradle/caches/transforms-3/ffefa6a5226ddd86c886781197a3d8f3/transformed/room-ktx-2.5.0/res
-com.pingoptimizer.pro.app-resValues-57 /Users/gost/Documents/GitHub/PingOptimizerPro/app/build/generated/res/resValues/debug
-com.pingoptimizer.pro.app-packageDebugResources-58 /Users/gost/Documents/GitHub/PingOptimizerPro/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.pingoptimizer.pro.app-packageDebugResources-59 /Users/gost/Documents/GitHub/PingOptimizerPro/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.pingoptimizer.pro.app-merged_res-60 /Users/gost/Documents/GitHub/PingOptimizerPro/app/build/intermediates/merged_res/debug
-com.pingoptimizer.pro.app-debug-61 /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/debug/res
-com.pingoptimizer.pro.app-main-62 /Users/gost/Documents/GitHub/PingOptimizerPro/app/src/main/res
+com.pingoptimizer.pro.app-resValues-57 /Users/gost/Documents/GitHub/NetUP/app/build/generated/res/resValues/debug
+com.pingoptimizer.pro.app-packageDebugResources-58 /Users/gost/Documents/GitHub/NetUP/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.pingoptimizer.pro.app-packageDebugResources-59 /Users/gost/Documents/GitHub/NetUP/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.pingoptimizer.pro.app-merged_res-60 /Users/gost/Documents/GitHub/NetUP/app/build/intermediates/merged_res/debug
+com.pingoptimizer.pro.app-debug-61 /Users/gost/Documents/GitHub/NetUP/app/src/debug/res
+com.pingoptimizer.pro.app-main-62 /Users/gost/Documents/GitHub/NetUP/app/src/main/res

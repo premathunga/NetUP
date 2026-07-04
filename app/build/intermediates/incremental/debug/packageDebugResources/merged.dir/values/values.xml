@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
     <color name="ic_launcher_background">#0A0E17</color>
+    <string name="accessibility_service_description">
+        NetUP uses this permission ONLY when you tap "Clean Now" - it briefly opens each
+        background app\'s system Settings page and taps the real "Force stop" button on your
+        behalf, then returns you to NetUP. It does not run in the background at any other time
+        and does not read or interact with any other app.
+    </string>
     <string name="app_name">NetUP</string>
     <string name="nav_booster">Booster</string>
     <string name="nav_dashboard">Dashboard</string>

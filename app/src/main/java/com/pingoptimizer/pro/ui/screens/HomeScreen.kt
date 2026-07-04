@@ -82,18 +82,10 @@ fun HomeScreen() {
             val avail = memoryInfo.availMem.toDouble()
             ramUsagePercent = (((total - avail) / total) * 100).toInt()
 
-            // Update Ping
+            // Update Ping - centralized, real measurement (ICMP with TCP-connect fallback)
             pingMs = withContext(Dispatchers.IO) {
-                try {
-                    val process = Runtime.getRuntime().exec("ping -c 1 -W 1 8.8.8.8")
-                    val reader = BufferedReader(InputStreamReader(process.inputStream))
-                    val output = reader.readText()
-                    process.waitFor()
-                    val match = "time=([0-9.]+)".toRegex().find(output)
-                    match?.groupValues?.get(1)?.toDouble()?.toInt() ?: -1
-                } catch (e: Exception) {
-                    -1
-                }
+                val r = com.pingoptimizer.pro.network.PingUtils.smartPing("8.8.8.8")
+                if (r.success) r.latencyMs.toInt() else -1
             }
             if (pingMs > 0) {
                 pingHistory = (pingHistory.drop(1) + pingMs)
