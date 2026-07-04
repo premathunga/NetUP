@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="ic_launcher_background">#0A0E17</color>
+    <string name="app_name">NetUP</string>
+    <string name="nav_booster">Booster</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_dns">DNS</string>
+    <string name="nav_gamemode">Game Mode</string>
+    <string name="nav_ping">Ping</string>
+    <string name="nav_signal">Signal</string>
+    <string name="tagline">Mobile Gamers\' Network Toolkit</string>
+    <string name="vpn_permission_rationale">
+        Network Booster සහ DNS Switcher features වැඩ කරන්න local VPN tunnel එකක් අවශ්‍යයි.
+        මේක ඔයාගේ data කිසිම remote server එකකට යවන්නේ නෑ - device එක ඇතුලේම (local) ක්‍රියා කරන
+        tunnel එකක්.
+    </string>
+    <style name="Theme.PingOptimizerPro" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#0A0E17</item>
+        <item name="android:navigationBarColor">#0A0E17</item>
+        <item name="android:windowLightStatusBar" ns1:targetApi="23">false</item>
+        <item name="android:windowBackground">#0A0E17</item>
+    </style>
+</resources>

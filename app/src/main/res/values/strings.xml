@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">NetUP</string>
+    <string name="tagline">Mobile Gamers\' Network Toolkit</string>
+
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_ping">Ping</string>
+    <string name="nav_booster">Booster</string>
+    <string name="nav_dns">DNS</string>
+    <string name="nav_gamemode">Game Mode</string>
+    <string name="nav_signal">Signal</string>
+
+    <string name="vpn_permission_rationale">
+        Network Booster සහ DNS Switcher features වැඩ කරන්න local VPN tunnel එකක් අවශ්‍යයි.
+        මේක ඔයාගේ data කිසිම remote server එකකට යවන්නේ නෑ - device එක ඇතුලේම (local) ක්‍රියා කරන
+        tunnel එකක්.
+    </string>
+</resources>

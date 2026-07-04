@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple stylized signal / lightning bolt mark -->
+    <path
+        android:fillColor="#00E5A8"
+        android:pathData="M60,20 L38,58 L52,58 L46,90 L74,50 L58,50 Z" />
+    <path
+        android:fillColor="#00B8FF"
+        android:pathData="M20,54 a34,34 0 1 0 68,0 a34,34 0 1 0 -68,0 Z"
+        android:strokeColor="#00B8FF"
+        android:strokeWidth="3"
+        android:fillAlpha="0"/>
+</vector>
