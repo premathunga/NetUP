@@ -84,10 +84,6 @@ app/src/main/java/com/pingoptimizer/pro/
 - [ ] Community-maintained list of popular game "status/ping-check" endpoints
 - [ ] Localization: full Sinhala + Tamil + English string resources
 
-## 📄 License
-
-Open source — MIT License. Fork කරලා, improve කරලා, ඕනෑම කෙනෙකුට use කරන්න පුළුවන්.
-
 ---
 
 Made with ❤️ for Sri Lankan mobile gamers.
