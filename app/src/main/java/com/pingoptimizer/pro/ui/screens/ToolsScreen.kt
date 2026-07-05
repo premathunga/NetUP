@@ -235,7 +235,7 @@ fun ToolsScreen() {
                     else -> "No forced overrides - your normal device settings apply."
                 },
                 color = TextSecondary, fontSize = 11.sp
-            )
+            }
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -321,7 +321,7 @@ fun ToolsScreen() {
                 Text("Advanced Tools", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.width(8.dp))
                 Box(modifier = Modifier.background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(50)).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                    Text("REAL", color = TextPrimary, fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                    Text("EXPERIMENTAL", color = TextPrimary, fontSize = 8.sp, fontWeight = FontWeight.Bold)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -329,45 +329,23 @@ fun ToolsScreen() {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 AdvancedToolCard(
                     modifier = Modifier.weight(1f),
-                    title = "Performance HUD",
-                    subtitle = "LIVE PING / RAM / TEMP",
+                    title = "FPS Monitor",
+                    subtitle = "REAL-TIME OVERLAY",
                     icon = Icons.Filled.GraphicEq,
-                    buttonText = if (hudActive) "STOP" else "ACTIVATE",
-                    onClick = {
-                        if (!OverlayPermissionUtils.canDrawOverlays(context)) {
-                            OverlayPermissionUtils.requestOverlayPermission(context)
-                        } else if (hudActive) {
-                            PerformanceHudService.stop(context)
-                            hudActive = false
-                        } else {
-                            PerformanceHudService.start(context)
-                            hudActive = true
-                        }
-                    }
+                    buttonText = "ACTIVATE"
                 )
                 AdvancedToolCard(
                     modifier = Modifier.weight(1f),
                     title = "Crosshair",
-                    subtitle = "CLICK-THROUGH OVERLAY",
+                    subtitle = "FPS PRECISION",
                     icon = Icons.Filled.FilterCenterFocus,
-                    buttonText = if (crosshairActive) "STOP" else "ACTIVATE",
-                    onClick = {
-                        if (!OverlayPermissionUtils.canDrawOverlays(context)) {
-                            OverlayPermissionUtils.requestOverlayPermission(context)
-                        } else if (crosshairActive) {
-                            CrosshairOverlayService.stop(context)
-                            crosshairActive = false
-                        } else {
-                            CrosshairOverlayService.start(context)
-                            crosshairActive = true
-                        }
-                    }
+                    buttonText = "CONFIGURE"
                 )
             }
             
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Thermal Status Card - real PowerManager thermal status, not a dead switch
+            // Thermal Sync Card
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -388,17 +366,12 @@ fun ToolsScreen() {
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
-                    Text("Thermal Status", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    Text(
-                        if (!thermalSupported) "Requires Android 10+"
-                        else if (thermalMonitoring) thermalStatusLabel else "Monitoring off",
-                        color = TextSecondary, fontSize = 12.sp
-                    )
+                    Text("Thermal Sync v2", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text("CPU/GPU Throttle Control", color = TextSecondary, fontSize = 12.sp)
                 }
                 Switch(
-                    checked = thermalMonitoring,
-                    enabled = thermalSupported,
-                    onCheckedChange = { thermalMonitoring = it },
+                    checked = thermalSync,
+                    onCheckedChange = { thermalSync = it },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         checkedTrackColor = NeonCyan,
@@ -479,7 +452,7 @@ fun UtilityToggleRow(title: String, subtitle: String, icon: ImageVector, checked
 }
 
 @Composable
-fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: ImageVector, buttonText: String, onClick: () -> Unit = {}) {
+fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: ImageVector, buttonText: String) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
@@ -498,7 +471,7 @@ fun AdvancedToolCard(modifier: Modifier, title: String, subtitle: String, icon: 
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color.White.copy(alpha = 0.1f))
-                .clickable { onClick() }
+                .clickable { /* Future implementation */ }
                 .padding(vertical = 10.dp),
             contentAlignment = Alignment.Center
         ) {
